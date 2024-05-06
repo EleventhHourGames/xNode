@@ -149,7 +149,9 @@ namespace XNode {
                     case "Microsoft":
                         continue;
                     default:
-                        nodeTypes.AddRange(assembly.GetTypes().Where(t => !t.IsAbstract && baseType.IsAssignableFrom(t)).ToArray());
+                        try {
+                            nodeTypes.AddRange(assembly.GetTypes().Where(t => !t.IsAbstract && baseType.IsAssignableFrom(t)).ToArray());
+                        } catch (ReflectionTypeLoadException) { }
                         break;
                 }
             }
